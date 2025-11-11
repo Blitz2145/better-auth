@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@better-fetch/fetch": "catalog:",
     "better-auth": "workspace:*",
     "next": "16.0.1",
     "react": "19.2.0",
