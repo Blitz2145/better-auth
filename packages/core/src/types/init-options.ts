@@ -936,14 +936,7 @@ export type BetterAuthOptions = {
 	/**
 	 * Advanced options
 	 */
-	advanced?:
-		| (BetterAuthAdvancedOptions & {
-				/**
-				 * @deprecated Please use `database.generateId` instead.
-				 */
-				generateId?: never;
-		  })
-		| undefined;
+	advanced?: BetterAuthAdvancedOptions | undefined;
 	logger?: Logger | undefined;
 	/**
 	 * allows you to define custom hooks that can be
@@ -1345,4 +1338,18 @@ export type BetterAuthOptions = {
 				debug?: boolean;
 		  }
 		| undefined;
+	/**
+	 * Experimental features
+	 */
+	experimental?: {
+		/**
+		 * Enable experimental joins for your database adapter.
+		 *
+		 * 	Please read the adapter documentation for more information regarding joins before enabling this.
+		 * 	Not all adapters support joins.
+		 *
+		 * @default false
+		 */
+		joins?: boolean;
+	};
 };
