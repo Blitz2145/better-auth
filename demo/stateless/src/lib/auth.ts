@@ -1,5 +1,5 @@
 import { betterFetch } from "@better-fetch/fetch";
-import { betterAuth } from "better-auth";
+import { betterAuth } from "better-auth/minimal";
 import { genericOAuth } from "better-auth/plugins/generic-oauth";
 import { GithubProfile } from "better-auth/social-providers";
 
@@ -16,23 +16,14 @@ export const auth = betterAuth({
   baseURL,
   secret: process.env.BETTER_AUTH_SECRET,
 
-  // socialProviders: {
-  // 	github: {
-  // 		clientId: process.env.GITHUB_CLIENT_ID as string,
-  // 		clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-  // 	},
-  // },
-
   session: {
     cookieCache: {
       enabled: true,
     },
   },
-
-  advanced: {
-    oauthConfig: {
-      storeStateStrategy: "cookie",
-    },
+  account: {
+    storeStateStrategy: 'cookie',
+    storeAccountCookie: true, // Store account data after OAuth flow in a cookie (useful for database-less flows)
   },
   plugins: [
     genericOAuth({
@@ -88,10 +79,9 @@ export const auth = betterAuth({
               emailVerified,
             };
           },
+          // NOTE: unable to use discoveryUrl with github
           //   discoveryUrl:
           //     "https://github.com/login/oauth/.well-known/openid-configuration",
-          disableImplicitSignUp: true,
-          disableSignUp: true,
         },
       ],
     }),

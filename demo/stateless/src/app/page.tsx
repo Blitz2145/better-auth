@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn, useSession } from "@/lib/auth-client";
+import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -15,10 +15,13 @@ export default function Home() {
   }, [session, router]);
 
   const handleGitHubSignIn = async () => {
-    await signIn.oauth2({
-      providerId: "github2",
-      callbackURL: "http://localhost:3001/dashboard",
-    });
+    // NOTE: Redirect to server-side endpoint to handle sign in, triggers issue
+    window.location.href = "/api/signin-server";
+    // NOTE: Enable this to use client-side sign in and everything will work as expected
+    // await signIn.oauth2({
+    //   providerId: "github2",
+    //   callbackURL: "http://localhost:3000/dashboard",
+    // });
   };
 
   if (isPending) {
